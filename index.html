@@ -44,7 +44,7 @@
             text-transform: uppercase;
             text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
             animation: god-mode 3s ease-in-out infinite;
-            padding-right: 10px; /* Biar huruf E nggak kepotong bray */
+            padding-right: 10px; 
         }
 
         /* --- EFEK KILAT: SAMPAI POJOK GARIS 3 --- */
@@ -80,13 +80,13 @@
             50% { transform: translateY(-2px); filter: brightness(1.3); text-shadow: 0 0 20px var(--primary-blue); }
         }
 
-        /* Banner Utama - FIX: Padding dihapus biar pas garis teks berjalan */
+        /* Banner Utama */
         .banner { padding: 0; position: relative; } 
         .banner-wrapper {
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-bottom: 1px solid #334155; /* Garis pembatas tipis bray */
+            border-bottom: 1px solid #334155; 
             aspect-ratio: 16 / 9;
         }
         .banner-img { width: 100%; height: 100%; }
@@ -153,7 +153,7 @@
         }
 
         /* --- SECTION GAME CHEAT POPULER (TEKS BARU) --- */
-        .search-container { padding: 10px 20px 20px; }
+        .search-container { padding: 10px 20px 10px; }
         
         .title-section { 
             display: flex; 
@@ -162,7 +162,7 @@
             font-size: 1.1rem; 
             font-weight: 900; 
             font-style: italic; 
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             color: #fff;
             animation: pulse-glow 2s infinite ease-in-out;
         }
@@ -172,8 +172,106 @@
             50% { text-shadow: 0 0 15px var(--primary-blue); transform: scale(1.02); color: var(--primary-blue); }
         }
 
-        /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px; }
+        /* --- LIST GAME FILTER: TEBAL & MIRING --- */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 0 20px 20px;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-item {
+            background: var(--card-bg);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            white-space: nowrap;
+            border: 1px solid #1e293b;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .filter-item.active {
+            background: var(--primary-blue);
+            border-color: #60a5fa;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        /* --- PRODUCT GRID UPGRADE: 3 KOLOM SEJAJAR --- */
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            padding: 0 10px; 
+        }
+
+        /* --- STYLE KARTU PRODUK: UKURAN BESAR & TINGGI SESUAI CONTOH --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--neon-border);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Foto kotak sempurna bray */
+            background: #000;
+            overflow: hidden;
+            padding: 5px; /* Kasih gap dikit biar kayak frame */
+        }
+        .card-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 8px;
+        }
+        
+        .card-info { padding: 15px 10px; text-align: center; }
+        .card-title {
+            font-size: 0.65rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #fff;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+        .btn-beli {
+            background: #1e293b;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: 0.3s;
+            border: 1px solid #334155;
+            text-transform: uppercase;
+        }
+        .btn-beli:hover {
+            background: var(--primary-blue);
+            box-shadow: 0 0 15px var(--primary-blue);
+            transform: translateY(-2px);
+        }
 
     </style>
 </head>
@@ -212,8 +310,60 @@
         <div class="title-section">🔥 GAME CHEAT POPULER</div>
     </div>
 
-    <div class="product-grid">
+    <div class="filter-container">
+        <div class="filter-item active" onclick="filterGame(this, 'all')">ALL</div>
+        <div class="filter-item" onclick="filterGame(this, 'ff')">FREE FIRE</div>
+        <div class="filter-item" onclick="filterGame(this, 'ml')">MOBILE LEGEND</div>
+        <div class="filter-item" onclick="filterGame(this, 'bs')">BLOOD STRIKE</div>
+        <div class="filter-item" onclick="filterGame(this, '8bp')">8 BALL POOL</div>
     </div>
+
+    <div class="product-grid" id="productGrid">
+        </div>
+
+    <script>
+        function filterGame(element, game) {
+            document.querySelectorAll('.filter-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = ''; 
+
+            if (game === 'ff' || game === 'all') {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="img_ff1.jpg" alt="DRIP CLIENT">
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">DRIP CLIENT APKMOD</div>
+                            <button class="btn-beli">🛒 BELI</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="img_ff2.jpg" alt="DRIP CLIENT">
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">DRIP CLIENT ROOT</div>
+                            <button class="btn-beli">🛒 BELI</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="img_ff3.jpg" alt="HG CHEATS">
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">HG CHEATS NON ROOT</div>
+                            <button class="btn-beli">🛒 BELI</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        filterGame(document.querySelector('.filter-item.active'), 'all');
+    </script>
 
 </body>
 </html>
