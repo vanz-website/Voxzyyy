@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSTeamAdm - LIST ALL CHEAT</title>
+    <title>PSTeamAdm - VOXZY STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,6 +12,8 @@
             --primary-blue: #3b82f6;
             --text-gray: #94a3b8;
             --neon-border: #1e293b;
+            --verified-blue: #1d9bf0;
+            --lightning: #fff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -33,139 +35,123 @@
         .logo span { color: var(--primary-blue); }
 
         /* Banner Utama 16:9 */
-        .banner { padding: 10px; }
-        .banner-img {
+        .banner { padding: 10px; position: relative; }
+        .banner-wrapper {
+            position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #334155;
-            background: #0f172a;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center; /* Center Vertikal */
+            justify-content: center; /* Center Horizontal */
+        }
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
         .banner-img img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Search Section */
-        .search-container { padding: 20px; }
-        .title-section { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            margin-bottom: 15px; 
-        }
-        .search-bar { 
-            display: flex; 
-            background: #0f172a; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            border: 1px solid #1e293b; 
-        }
-        .search-bar input { 
-            flex: 1; 
-            background: transparent; 
-            border: none; 
-            padding: 12px 15px; 
-            color: white; 
-            outline: none; 
-        }
-        .btn-cari { 
-            background: var(--primary-blue); 
-            color: white; 
-            border: none; 
-            padding: 0 25px; 
-            font-weight: bold; 
-            cursor: pointer; 
+        /* Watermark verified @voxzystore (FIXED DI TENGAH FOTO) */
+        .watermark-verified {
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(29, 155, 240, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
+        .wm-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .wm-icon {
+            width: 22px;
+            height: 22px;
+            fill: var(--verified-blue);
+            filter: drop-shadow(0 0 5px var(--verified-blue));
+        }
+
+        /* --- TEKS BERJALAN EFEK PETIR --- */
+        .running-text-container {
+            width: 100%;
+            background: #0b1426;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+            overflow: hidden;
+            padding: 12px 0;
+            margin-bottom: 10px;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite; /* Speed kenceng bray */
+        }
+
+        .marquee-content p {
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-right: 100px;
+            /* Efek Petir Pulse */
+            animation: lightning-glow 1.5s linear infinite;
+        }
+
+        .highlight-blue { color: var(--primary-blue); }
+        .highlight-green { color: #10b981; }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Animasi Efek Petir / Neon Pulse */
+        @keyframes lightning-glow {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px var(--primary-blue); opacity: 1; }
+            50% { text-shadow: 0 0 20px #fff, 0 0 30px var(--primary-blue), 0 0 40px var(--primary-blue); opacity: 0.8; }
+            55% { text-shadow: 0 0 2px #fff; opacity: 1; }
+        }
+
+        /* Search Section */
+        .search-container { padding: 10px 20px 20px; }
+        .title-section { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+        .search-bar { display: flex; background: #0f172a; border-radius: 8px; overflow: hidden; border: 1px solid #1e293b; }
+        .search-bar input { flex: 1; background: transparent; border: none; padding: 12px 15px; color: white; outline: none; }
+        .btn-cari { background: var(--primary-blue); color: white; border: none; padding: 0 25px; font-weight: bold; cursor: pointer; }
+
         /* Filter Kategori */
-        .categories { 
-            display: flex; 
-            gap: 8px; 
-            padding: 0 20px 20px; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-        }
-        .cat-item { 
-            background: #1e293b; 
-            padding: 8px 18px; 
-            border-radius: 8px; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            color: var(--text-gray); 
-            cursor: pointer; 
-        }
+        .categories { display: flex; gap: 8px; padding: 0 20px 20px; overflow-x: auto; white-space: nowrap; }
+        .cat-item { background: #1e293b; padding: 8px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text-gray); cursor: pointer; }
         .cat-item.active { background: var(--primary-blue); color: white; }
         .categories::-webkit-scrollbar { display: none; }
 
-        /* Grid Produk (2 Kolom) */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 15px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #1e293b;
-            text-align: center;
-            position: relative;
-        }
-
-        .badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--primary-blue);
-            color: white;
-            font-size: 10px;
-            padding: 4px 10px;
-            border-bottom-left-radius: 10px;
-            font-weight: bold;
-            z-index: 10;
-        }
+        /* Grid Produk */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; text-align: center; position: relative; }
+        .badge { position: absolute; top: 0; right: 0; background: var(--primary-blue); color: white; font-size: 10px; padding: 4px 10px; border-bottom-left-radius: 10px; font-weight: bold; z-index: 10; }
         .badge.pc { background: #ef4444; }
-
-        .card-img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            background: #1e293b;
-        }
+        .card-img { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #1e293b; }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-
         .card-info { padding: 12px; }
-        .card-info h3 { 
-            font-size: 0.75rem; 
-            color: white; 
-            margin-bottom: 12px; 
-            height: 35px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-transform: uppercase; 
-            line-height: 1.2;
-        }
-
-        .btn-beli {
-            background: #1e293b;
-            color: white;
-            width: 100%;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .card-info h3 { font-size: 0.75rem; color: white; margin-bottom: 12px; height: 35px; display: flex; align-items: center; justify-content: center; text-transform: uppercase; line-height: 1.2; }
+        .btn-beli { background: #1e293b; color: white; width: 100%; border: none; padding: 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; transition: 0.3s; }
         .btn-beli:hover { background: var(--primary-blue); }
 
     </style>
@@ -178,8 +164,28 @@
     </nav>
 
     <div class="banner">
-        <div class="banner-img">
-            <img src="img1.jpg" alt="Banner Utama">
+        <div class="banner-wrapper">
+            <div class="banner-img">
+                <img src="img1.jpg" alt="Voxzy Store Banner">
+            </div>
+            
+            <div class="watermark-verified">
+                <span class="wm-text">@voxzystore</span>
+                <svg class="wm-icon" viewBox="0 0 24 24">
+                    <g><path d="M22.5 12.5c0-1.58-.8-2.95-2.02-3.76.42-1.61.08-3.34-1.11-4.53-1.19-1.19-2.91-1.53-4.52-1.11-.81-1.22-2.18-2.02-3.76-2.02s-2.95.8-3.76 2.02c-1.61-.42-3.34-.08-4.53 1.11-1.19 1.19-1.53 2.91-1.11 4.52-1.22.81-2.02 2.18-2.02 3.76s.8 2.95 2.02 3.76c-.42 1.61-.08 3.34 1.11 4.53 1.19 1.19 2.91 1.53 4.52 1.11.81 1.22 2.18 2.02 3.76 2.02s2.95-.8 3.76-2.02c1.61.42 3.34.08 4.53-1.11 1.19-1.19 1.53-2.91 1.11-4.52 1.22-.81 2.02-2.18 2.02-3.76zm-11.23 3.99l-4.3-4.3 1.41-1.41 2.89 2.89 7.18-7.18 1.41 1.41-8.59 8.59z"></path></g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="running-text-container">
+        <div class="marquee-content">
+            <p>
+                <span class="highlight-blue">VOXZY STORE</span> WEBSITE CHEAT <span class="highlight-green">MURAH, AMAN DAN TERPERCAYA</span> OPEN 24 JAM !!!
+            </p>
+            <p>
+                <span class="highlight-blue">VOXZY STORE</span> WEBSITE CHEAT <span class="highlight-green">MURAH, AMAN DAN TERPERCAYA</span> OPEN 24 JAM !!!
+            </p>
         </div>
     </div>
 
@@ -200,11 +206,10 @@
     </div>
 
     <div class="product-grid">
-        
         <div class="card">
             <div class="badge">ANDROID</div>
             <div class="card-img">
-                <img src="img2.jpg" alt="Cheat 1">
+                <img src="img2.jpg" alt="Drip Client APKMOD">
             </div>
             <div class="card-info">
                 <h3>DRIP CLIENT APKMOD</h3>
@@ -215,7 +220,7 @@
         <div class="card">
             <div class="badge">ANDROID</div>
             <div class="card-img">
-                <img src="img3.jpg" alt="Cheat 2">
+                <img src="img3.jpg" alt="Drip Client ROOT">
             </div>
             <div class="card-info">
                 <h3>DRIP CLIENT ROOT</h3>
@@ -226,7 +231,7 @@
         <div class="card">
             <div class="badge pc">PC</div>
             <div class="card-img">
-                <img src="img4.jpg" alt="Cheat 3">
+                <img src="img4.jpg" alt="Drip Client PC">
             </div>
             <div class="card-info">
                 <h3>DRIP CLIENT PC AIMKILL</h3>
@@ -237,14 +242,13 @@
         <div class="card">
             <div class="badge">ANDROID</div>
             <div class="card-img">
-                <img src="img5.jpg" alt="Cheat 4">
+                <img src="img5.jpg" alt="HG Cheats">
             </div>
             <div class="card-info">
                 <h3>HG CHEATS MOD & ROOT</h3>
                 <button class="btn-beli">🛒 BELI</button>
             </div>
         </div>
-
     </div>
 
 </body>
