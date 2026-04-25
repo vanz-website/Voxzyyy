@@ -80,14 +80,13 @@
             50% { transform: translateY(-2px); filter: brightness(1.3); text-shadow: 0 0 20px var(--primary-blue); }
         }
 
-        /* Banner Utama */
-        .banner { padding: 10px 10px 0 10px; position: relative; }
+        /* Banner Utama - FIX: Padding dihapus biar pas garis teks berjalan */
+        .banner { padding: 0; position: relative; } 
         .banner-wrapper {
             position: relative;
             width: 100%;
-            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #334155;
+            border-bottom: 1px solid #334155; /* Garis pembatas tipis bray */
             aspect-ratio: 16 / 9;
         }
         .banner-img { width: 100%; height: 100%; }
