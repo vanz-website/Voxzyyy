@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSTeamAdm - LIST ALL CHEAT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060d19;
+            --card-bg: #101929;
+            --primary-blue: #3b82f6;
+            --text-gray: #94a3b8;
+            --neon-border: #1e293b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: white; padding-bottom: 50px; overflow-x: hidden; }
+
+        /* Navbar */
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 20px; 
+            background: #0b1426; 
+            border-bottom: 1px solid #1e293b; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .logo { font-size: 1.4rem; font-weight: 800; color: white; }
+        .logo span { color: var(--primary-blue); }
+
+        /* Banner Utama 16:9 */
+        .banner { padding: 10px; }
+        .banner-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            background: #0f172a;
+        }
+        .banner-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Search Section */
+        .search-container { padding: 20px; }
+        .title-section { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            margin-bottom: 15px; 
+        }
+        .search-bar { 
+            display: flex; 
+            background: #0f172a; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            border: 1px solid #1e293b; 
+        }
+        .search-bar input { 
+            flex: 1; 
+            background: transparent; 
+            border: none; 
+            padding: 12px 15px; 
+            color: white; 
+            outline: none; 
+        }
+        .btn-cari { 
+            background: var(--primary-blue); 
+            color: white; 
+            border: none; 
+            padding: 0 25px; 
+            font-weight: bold; 
+            cursor: pointer; 
+        }
+
+        /* Filter Kategori */
+        .categories { 
+            display: flex; 
+            gap: 8px; 
+            padding: 0 20px 20px; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+        }
+        .cat-item { 
+            background: #1e293b; 
+            padding: 8px 18px; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            color: var(--text-gray); 
+            cursor: pointer; 
+        }
+        .cat-item.active { background: var(--primary-blue); color: white; }
+        .categories::-webkit-scrollbar { display: none; }
+
+        /* Grid Produk (2 Kolom) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-blue);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-bottom-left-radius: 10px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .badge.pc { background: #ef4444; }
+
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #1e293b;
+        }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-info { padding: 12px; }
+        .card-info h3 { 
+            font-size: 0.75rem; 
+            color: white; 
+            margin-bottom: 12px; 
+            height: 35px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-transform: uppercase; 
+            line-height: 1.2;
+        }
+
+        .btn-beli {
+            background: #1e293b;
+            color: white;
+            width: 100%;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-beli:hover { background: var(--primary-blue); }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PSTeam<span>Adm</span></div>
+        <div class="menu-icon">☰</div>
+    </nav>
+
+    <div class="banner">
+        <div class="banner-img">
+            <img src="img1.jpg" alt="Banner Utama">
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="title-section">🔥 POPULER</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Mau cari cheat apa hari ini?">
+            <button class="btn-cari">CARI</button>
+        </div>
+    </div>
+
+    <div class="categories">
+        <div class="cat-item active">ALL</div>
+        <div class="cat-item">FREEFIRE</div>
+        <div class="cat-item">MLBB</div>
+        <div class="cat-item">RESELLER</div>
+        <div class="cat-item">8 BALLPOOL</div>
+    </div>
+
+    <div class="product-grid">
+        
+        <div class="card">
+            <div class="badge">ANDROID</div>
+            <div class="card-img">
+                <img src="img2.jpg" alt="Cheat 1">
+            </div>
+            <div class="card-info">
+                <h3>DRIP CLIENT APKMOD</h3>
+                <button class="btn-beli">🛒 BELI</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">ANDROID</div>
+            <div class="card-img">
+                <img src="img3.jpg" alt="Cheat 2">
+            </div>
+            <div class="card-info">
+                <h3>DRIP CLIENT ROOT</h3>
+                <button class="btn-beli">🛒 BELI</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge pc">PC</div>
+            <div class="card-img">
+                <img src="img4.jpg" alt="Cheat 3">
+            </div>
+            <div class="card-info">
+                <h3>DRIP CLIENT PC AIMKILL</h3>
+                <button class="btn-beli">🛒 BELI</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="badge">ANDROID</div>
+            <div class="card-img">
+                <img src="img5.jpg" alt="Cheat 4">
+            </div>
+            <div class="card-info">
+                <h3>HG CHEATS MOD & ROOT</h3>
+                <button class="btn-beli">🛒 BELI</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
